@@ -1,12 +1,28 @@
 export class Item {
+    static specialItemNames: Set<String> = new Set([
+        'Aged Brie',
+        'Backstage passes to a TAFKAL80ETC concert',
+        'Sulfuras, Hand of Ragnaros'
+    ]);
+
     name: string;
     sellIn: number;
     quality: number;
 
-    constructor(name, sellIn, quality) {
+    constructor(name: string, sellIn: number, quality: number) {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
+    }
+
+    checkSpecialItem(): boolean {
+        return Item.specialItemNames.has(this.name);
+    }
+
+    updateCommonItem(): void {
+        if (this.quality > 0) {
+            this.quality -= 1;
+        }
     }
 }
 
@@ -19,13 +35,18 @@ export class GildedRose {
 
     updateQuality() {
         for (let i = 0; i < this.items.length; i++) {
-            if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-                if (this.items[i].quality > 0) {
-                    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                        this.items[i].quality = this.items[i].quality - 1
-                    }
-                }
-            } else {
+            if (!this.items[i].checkSpecialItem()) {
+                this.items[i].updateCommonItem();
+            }
+
+            // if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+            //     if (this.items[i].quality > 0) {
+            //         if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+            //             this.items[i].quality = this.items[i].quality - 1
+            //         }
+            //     }
+            // }
+            else {
                 if (this.items[i].quality < 50) {
                     this.items[i].quality = this.items[i].quality + 1
                     if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
