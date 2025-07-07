@@ -11,7 +11,7 @@ describe('Testing the time', () => {
     const noDays: number[] = [3, 1, 20];
 
     let testData = transformIntoGildedArray(gildedRose);
-    let actualResult = evaluate(testData, noDays);
+    const actualResult = evaluate(testData, noDays);
 
     it('Check if the days are computed correctly', () => {
         let correctResult: number[] = [-3, 0, 5];

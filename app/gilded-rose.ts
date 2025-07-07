@@ -13,7 +13,8 @@ export class Item {
 export class GildedRose {
     private static specialItemNames: Set<string> = new Set([
         'Aged Brie',
-        'Backstage passes to a TAFKAL80ETC concert'
+        'Backstage passes to a TAFKAL80ETC concert',
+        'Conjured Mana Cake'
     ]);
     private static skipItems: Set<string> = new Set([
         'Sulfuras, Hand of Ragnaros'
@@ -37,6 +38,9 @@ export class GildedRose {
 
     private processSpecialItems(item: Item): void {
         switch (item.name) {
+            case 'Conjured Mana Cake':
+                item.quality = Math.max(item.quality - 2, 0);
+                break;
             case 'Aged Brie':
                 item.quality += 1;
                 break;
@@ -63,8 +67,12 @@ export class GildedRose {
                 case 'Backstage passes to a TAFKAL80ETC concert':
                     item.quality = 0;
                     break;
+                case 'Conjured Mana Cake':
+                    item.quality = Math.max(item.quality - 2, 0);
+                    break;
                 default:
                     item.quality = Math.max(item.quality - 1, 0);
+
             }
         }
     }
@@ -83,6 +91,7 @@ export class GildedRose {
             }
 
             this.updateTime(this.items[i]);
+
         }
         return this.items;
     }
